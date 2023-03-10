@@ -1,5 +1,6 @@
 mod globals;
 mod verification;
+mod discord;
 
 use globals::Globals;
 use serenity::{framework::StandardFramework, prelude::GatewayIntents, Client};
