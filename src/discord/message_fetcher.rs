@@ -8,9 +8,9 @@ pub struct MessageFetcher {
 
 impl MessageFetcher {
     pub fn new(limit: i32) -> Self {
-        return MessageFetcher {
+        MessageFetcher {
             message_limit: limit as u64,
-        };
+        }
     }
 
     pub async fn get_last_messages(
@@ -25,6 +25,6 @@ impl MessageFetcher {
             })
             .await?;
 
-        return Ok(messages.into_iter().filter(|m| is_from_user(m)).collect());
+        Ok(messages.into_iter().filter(is_from_user).collect())
     }
 }

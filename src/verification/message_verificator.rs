@@ -28,25 +28,23 @@ pub struct MessageVerificator {
 
 impl MessageVerificator {
     pub fn new(globals: Globals) -> Self {
-        return MessageVerificator {
+        MessageVerificator {
             message_fetcher: MessageFetcher::new(globals.message_fetch_limit),
             globals: globals.clone(),
-            error_handler: ErrorHandler::new(globals.clone()),
-        };
+            error_handler: ErrorHandler::new(globals),
+        }
     }
 
     async fn verify_message(&self, msg: &Message, context: &Context) -> Result<(), MessageError> {
         let messages = self
             .message_fetcher
-            .get_last_messages(&msg, &context.http)
+            .get_last_messages(msg, &context.http)
             .await
             .unwrap();
 
         let checked_numbers = CheckedNumbers::new(
-            messages
-                .iter()
-                .next()
-                .and_then(|val| extract_number_from_message(val)),
+            messages.first()
+                .and_then(extract_number_from_message),
             extract_number_from_message(msg),
         );
 

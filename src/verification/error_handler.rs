@@ -14,9 +14,9 @@ pub struct ErrorHandler {
 
 impl ErrorHandler {
     pub fn new(globals: Globals) -> Self {
-        return ErrorHandler {
+        ErrorHandler {
             message_sender: MessageSender::new(globals),
-        };
+        }
     }
 
     pub async fn handle_error(&self, error: MessageError, msg: &Message, context: &Context) {

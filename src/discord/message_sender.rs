@@ -35,10 +35,11 @@ impl MessageSender {
     }
 
     async fn send(original_msg: &Message, context: &Context, content: String) {
-        if let Err(_) = original_msg
+        if original_msg
             .channel_id
             .send_message(&context.http, |message| message.content(content))
             .await
+            .is_err()
         {
             error!(
                 "Failed to send message to channel={}",
