@@ -12,13 +12,14 @@ async fn main() {
     tracing_subscriber::fmt::init();
 
     let globals = Globals::new();
+    let token = globals.client_token.clone();
 
     let framework = StandardFramework::new();
     let intents =
         GatewayIntents::GUILDS | GatewayIntents::GUILD_MESSAGES | GatewayIntents::MESSAGE_CONTENT;
-    let mut client = Client::builder(globals.client_token, intents)
+    let mut client = Client::builder(token, intents)
         .framework(framework)
-        .event_handler(MessageVerificator)
+        .event_handler(MessageVerificator::new(globals))
         .await
         .expect("Err creating client");
 
