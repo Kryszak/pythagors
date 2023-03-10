@@ -3,14 +3,22 @@ use serenity::{
     model::prelude::{Activity, Message, Ready},
     prelude::{Context, EventHandler},
 };
-use tracing::log::info;
+use tracing::{
+    log::{error, info},
+    warn,
+};
 
 use crate::{
-    discord::{message_fetcher::MessageFetcher, message_utils},
+    discord::{
+        message_fetcher::MessageFetcher,
+        message_utils::{self, contains_number, extract_number_from_message},
+    },
     globals::Globals,
 };
 
-use super::{error_handler::ErrorHandler, message_error::MessageError};
+use super::{
+    checked_numbers::CheckedNumbers, error_handler::ErrorHandler, message_error::MessageError,
+};
 
 pub struct MessageVerificator {
     message_fetcher: MessageFetcher,
@@ -21,15 +29,57 @@ pub struct MessageVerificator {
 impl MessageVerificator {
     pub fn new(globals: Globals) -> Self {
         return MessageVerificator {
-            message_fetcher: MessageFetcher::new(),
-            globals,
-            error_handler: ErrorHandler::new(),
+            message_fetcher: MessageFetcher::new(globals.message_fetch_limit),
+            globals: globals.clone(),
+            error_handler: ErrorHandler::new(globals.clone()),
         };
     }
 
-    async fn verify_message(msg: &Message, context: Context) -> Result<(), MessageError> {
-        // TODO run message verifications
+    async fn verify_message(&self, msg: &Message, context: &Context) -> Result<(), MessageError> {
+        let messages = self
+            .message_fetcher
+            .get_last_messages(&msg, &context.http)
+            .await
+            .unwrap();
+
+        let checked_numbers = CheckedNumbers::new(
+            messages
+                .iter()
+                .next()
+                .and_then(|val| extract_number_from_message(val)),
+            extract_number_from_message(msg),
+        );
+
+        if checked_numbers.are_both_absent() {
+            if MessageVerificator::all_message_does_not_contain_numbers(messages) {
+                warn!("Skipping further validation as counting doesn't start yet");
+                return Ok(());
+            } else {
+                error!("Something really bad happen: two messages without numbers when there are other numbers in channel!");
+                return Err(MessageError::WrongFormat);
+            }
+        }
+        if checked_numbers.is_current_invalid_starting_number() {
+            warn!(
+                "{} tried to start game with value higher than 1!",
+                msg.author.name
+            );
+            return Err(MessageError::WrongNumber);
+        }
+        if checked_numbers.is_current_number_absent() {
+            warn!("{} sent message not starting with number.", msg.author.name);
+            return Err(MessageError::WrongFormat);
+        }
+        if checked_numbers.is_current_number_incorrect() {
+            warn!("{} posted wrong number!", msg.author.name);
+            return Err(MessageError::WrongNumber);
+        }
+
         Ok(())
+    }
+
+    fn all_message_does_not_contain_numbers(messages: Vec<Message>) -> bool {
+        return messages.iter().all(|m| !contains_number(m));
     }
 }
 
@@ -50,21 +100,13 @@ impl EventHandler for MessageVerificator {
                 msg.content, channel_name, msg.author.name
             );
 
-            let messages = self
-                .message_fetcher
-                .get_last_messages(&msg, &context.http)
-                .await
-                .unwrap()
-                .iter()
-                .for_each(|m| info!("content: {}", m.content));
-
-            match MessageVerificator::verify_message(&msg, context).await {
+            match self.verify_message(&msg, &context).await {
                 Ok(_) => info!(
                     "Finished verification of message={} from={}",
                     msg.content, msg.author.name
                 ),
                 Err(error) => {
-                    self.error_handler.handle_error(error).await;
+                    self.error_handler.handle_error(error, &msg, &context).await;
                 }
             }
         }
