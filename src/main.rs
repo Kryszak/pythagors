@@ -3,13 +3,19 @@ mod verification;
 
 use globals::Globals;
 use serenity::{framework::StandardFramework, prelude::GatewayIntents, Client};
+use tracing_subscriber::fmt;
 use verification::MessageVerificator;
 
 use tracing::error;
 
 #[tokio::main]
 async fn main() {
-    tracing_subscriber::fmt::init();
+    let format = fmt::format()
+        .with_target(false)
+        .with_thread_ids(true)
+        .with_ansi(true)
+        .compact();
+    tracing_subscriber::fmt().event_format(format).init();
 
     let globals = Globals::new();
     let token = globals.client_token.clone();
