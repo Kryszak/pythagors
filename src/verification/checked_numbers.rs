@@ -1,6 +1,6 @@
 pub struct CheckedNumbers {
     previous_number: Option<i32>,
-    current_number: Option<i32>,
+    pub current_number: Option<i32>,
 }
 
 impl CheckedNumbers {

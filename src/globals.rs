@@ -1,5 +1,7 @@
 use std::env;
 
+use serde_json::Value;
+
 #[derive(Clone)]
 pub struct Globals {
     pub client_token: String,
@@ -7,6 +9,8 @@ pub struct Globals {
     pub message_fetch_limit: i32,
     pub wrong_number_message_template: String,
     pub wrong_format_message_template: String,
+    pub rank_won_message_template: String,
+    pub ranks: Value,
 }
 
 impl Globals {
@@ -24,6 +28,11 @@ impl Globals {
                 .expect("No message template for wrong number posted provided"),
             wrong_format_message_template: env::var("WRONG_FORMAT_MESSAGE_TEMPLATE")
                 .expect("No message template for wrong format posted provided"),
+            rank_won_message_template: env::var("RANK_WON_MESSAGE_TEMPLATE")
+                .expect("No message template for rank won provided"),
+            ranks: env::var("RANKS")
+                .map(|data| serde_json::from_str(&data).expect("failed to parse data"))
+                .expect("No prized numbers provided"),
         }
     }
 }

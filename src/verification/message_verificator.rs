@@ -18,10 +18,12 @@ use crate::{
 
 use super::{
     checked_numbers::CheckedNumbers, error_handler::ErrorHandler, message_error::MessageError,
+    prize_manager::PrizeManager,
 };
 
 pub struct MessageVerificator {
     message_fetcher: MessageFetcher,
+    prize_manager: PrizeManager,
     globals: Globals,
     error_handler: ErrorHandler,
 }
@@ -30,6 +32,7 @@ impl MessageVerificator {
     pub fn new(globals: Globals) -> Self {
         MessageVerificator {
             message_fetcher: MessageFetcher::new(globals.message_fetch_limit),
+            prize_manager: PrizeManager::new(globals.clone()),
             globals: globals.clone(),
             error_handler: ErrorHandler::new(globals),
         }
@@ -43,8 +46,7 @@ impl MessageVerificator {
             .unwrap();
 
         let checked_numbers = CheckedNumbers::new(
-            messages.first()
-                .and_then(extract_number_from_message),
+            messages.first().and_then(extract_number_from_message),
             extract_number_from_message(msg),
         );
 
@@ -72,6 +74,10 @@ impl MessageVerificator {
             warn!("{} posted wrong number!", msg.author.name);
             return Err(MessageError::WrongNumber);
         }
+
+        self.prize_manager
+            .add_role_for_prized_number(msg, context, checked_numbers.current_number.unwrap())
+            .await;
 
         Ok(())
     }

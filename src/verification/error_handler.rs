@@ -1,10 +1,8 @@
 use serenity::{model::prelude::Message, prelude::Context};
 use tracing::debug;
 
-use crate::{
-    discord::{message_deleter::MessageDeleter, message_sender::MessageSender},
-    globals::Globals,
-};
+use crate::globals::Globals;
+use crate::discord::{message_deleter::MessageDeleter, message_sender::MessageSender};
 
 use super::message_error::MessageError;
 
