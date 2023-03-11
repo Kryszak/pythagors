@@ -19,7 +19,7 @@ Game rules can be found in [Rules](./RULES.md)
 
 ## local dev config
 ### Config
-In main project directory create `.env` file with following contents:
+In main project directory create `Secrets.toml` file with following contents:
 ```bash
 CLIENT_TOKEN=<bot's token>
 WATCHED_CHANNEL=test1=<name of channel to watch>
@@ -32,3 +32,25 @@ RANKS=<JSON with number - rankId entries, e.g. {"10": "973271221112291409", "15"
 ### Config placeholders
 - `{{author}}` will be substituted with mention to message's author
 - `{{role}}` will be substituted with mention to won role
+
+### Run project
+```
+cargo shuttle run
+```
+
+### Deploy to shuttle
+```
+cargo shuttle project new # only if project does not exist yet
+cargo shuttle deploy
+```
+Secrets are populated initially from `Secrets.toml` file and can be edited with `cargo shuttle secrets` command.
+
+### Stop deployment
+As for now, stopping deployment seems to be buggy and don't work. Normally it should be done with
+```
+cargo shuttle stop
+```
+but only way to destroy the deployment seems to be removing whole project from shuttle
+```
+cargo shuttle project rm
+```
