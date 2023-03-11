@@ -1,7 +1,8 @@
-pub mod message_verificator;
-mod message_error;
-pub mod error_handler;
 mod checked_numbers;
-pub mod prize_manager;
+mod error_handler;
+mod gameover_manager;
+mod message_error;
+pub mod message_verificator;
+mod prize_manager;
 
 pub use message_verificator::MessageVerificator;

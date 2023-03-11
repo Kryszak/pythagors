@@ -46,6 +46,12 @@ impl MessageSender {
         MessageSender::send(msg, context, message_content).await;
     }
 
+    pub async fn notify_game_over(&self, msg: &Message, context: &Context) {
+        let message_content = &self.globals.game_over_message_template;
+
+        MessageSender::send(msg, context, message_content.to_string()).await;
+    }
+
     async fn send(original_msg: &Message, context: &Context, content: String) {
         if original_msg
             .channel_id

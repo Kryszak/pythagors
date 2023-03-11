@@ -20,8 +20,8 @@ use crate::{
 };
 
 use super::{
-    checked_numbers::CheckedNumbers, error_handler::ErrorHandler, message_error::MessageError,
-    prize_manager::PrizeManager,
+    checked_numbers::CheckedNumbers, error_handler::ErrorHandler,
+    gameover_manager::GameoverManager, message_error::MessageError, prize_manager::PrizeManager,
 };
 
 pub struct MessageVerificator {
@@ -29,6 +29,7 @@ pub struct MessageVerificator {
     prize_manager: PrizeManager,
     globals: Globals,
     error_handler: ErrorHandler,
+    gameover_manager: GameoverManager,
     mutex: Arc<Mutex<bool>>,
 }
 
@@ -38,7 +39,8 @@ impl MessageVerificator {
             message_fetcher: MessageFetcher::new(globals.message_fetch_limit),
             prize_manager: PrizeManager::new(globals.clone()),
             globals: globals.clone(),
-            error_handler: ErrorHandler::new(globals),
+            error_handler: ErrorHandler::new(globals.clone()),
+            gameover_manager: GameoverManager::new(globals),
             mutex: Arc::new(Mutex::new(false)),
         }
     }
@@ -82,6 +84,10 @@ impl MessageVerificator {
 
         self.prize_manager
             .add_role_for_prized_number(msg, context, checked_numbers.current_number.unwrap())
+            .await;
+
+        self.gameover_manager
+            .check_for_game_over(msg, context, checked_numbers.current_number.unwrap())
             .await;
 
         Ok(())

@@ -9,7 +9,9 @@ pub struct Globals {
     pub wrong_number_message_template: String,
     pub wrong_format_message_template: String,
     pub rank_won_message_template: String,
+    pub game_over_message_template: String,
     pub ranks: Value,
+    pub gameover_number: i32,
 }
 
 impl Globals {
@@ -35,10 +37,18 @@ impl Globals {
             rank_won_message_template: secret_store
                 .get("RANK_WON_MESSAGE_TEMPLATE")
                 .expect("No message template for rank won provided"),
+            game_over_message_template: secret_store
+                .get("GAME_OVER_MESSAGE_TEMPLATE")
+                .expect("No message template for game over provided"),
             ranks: secret_store
                 .get("RANKS")
                 .map(|data| serde_json::from_str(&data).expect("failed to parse data"))
                 .expect("No prized numbers provided"),
+            gameover_number: secret_store
+                .get("GAME_OVER_NUMBER")
+                .expect("No game over number provided")
+                .parse::<i32>()
+                .expect("Failed to parse game over number"),
         }
     }
 }
