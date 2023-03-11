@@ -1,5 +1,8 @@
+use std::sync::Arc;
+
 use serenity::{
     async_trait,
+    futures::lock::Mutex,
     model::prelude::{Activity, Message, Ready},
     prelude::{Context, EventHandler},
 };
@@ -26,6 +29,7 @@ pub struct MessageVerificator {
     prize_manager: PrizeManager,
     globals: Globals,
     error_handler: ErrorHandler,
+    mutex: Arc<Mutex<bool>>,
 }
 
 impl MessageVerificator {
@@ -35,6 +39,7 @@ impl MessageVerificator {
             prize_manager: PrizeManager::new(globals.clone()),
             globals: globals.clone(),
             error_handler: ErrorHandler::new(globals),
+            mutex: Arc::new(Mutex::new(false)),
         }
     }
 
@@ -97,6 +102,7 @@ impl EventHandler for MessageVerificator {
     }
 
     async fn message(&self, context: Context, msg: Message) {
+        let _guard = self.mutex.lock().await;
         let channel_name = msg.channel_id.name(&context).await.unwrap();
         if channel_name == self.globals.watched_channel && message_utils::is_from_user(&msg) {
             info!(
