@@ -4,15 +4,15 @@ mod verification;
 
 use anyhow::anyhow;
 use globals::Globals;
-use serenity::{prelude::GatewayIntents, Client};
+use serenity::prelude::*;
 use serenity_ctrlc::Ext;
 use shuttle_secrets::SecretStore;
 use verification::MessageVerificator;
 
-#[shuttle_service::main]
+#[shuttle_runtime::main]
 async fn serenity(
     #[shuttle_secrets::Secrets] secret_store: SecretStore,
-) -> shuttle_service::ShuttleSerenity {
+) -> shuttle_serenity::ShuttleSerenity {
     let token = if let Some(token) = secret_store.get("CLIENT_TOKEN") {
         token
     } else {
@@ -31,5 +31,5 @@ async fn serenity(
         .ctrlc()
         .expect("Failed to register ctrl-c signal handler");
 
-    Ok(client)
+    Ok(client.into())
 }
