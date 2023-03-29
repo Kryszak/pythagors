@@ -1,8 +1,9 @@
 use serenity::{model::prelude::Message, prelude::Context};
 use tracing::debug;
 
+use crate::discord::message_deleter::delete_message;
 use crate::globals::Globals;
-use crate::discord::{message_deleter::MessageDeleter, message_sender::MessageSender};
+use crate::discord::message_sender::MessageSender;
 
 use super::message_error::MessageError;
 
@@ -34,13 +35,13 @@ impl ErrorHandler {
         self.message_sender
             .notify_wrong_message_format(msg, context)
             .await;
-        MessageDeleter::delete_message(msg, &context.http).await;
+        delete_message(msg, &context.http).await;
     }
 
     async fn handle_wrong_number_error(&self, msg: &Message, context: &Context) {
         self.message_sender
             .notify_wrong_number_provided(msg, context)
             .await;
-        MessageDeleter::delete_message(msg, &context.http).await;
+        delete_message(msg, &context.http).await;
     }
 }
