@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: protobuf-compiler
+          packages: protobuf-compiler libprotobuf-dev 
           version: 1.0
       - uses: actions-rs/toolchain@v1
         with:
