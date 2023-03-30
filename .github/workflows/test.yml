@@ -12,19 +12,11 @@ jobs:
       - name: Install dependencies
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: protobuf-compiler libprotobuf-dev 
+          packages: protobuf-compiler libprotobuf-dev libprotobuf-c-dev libprotobuf-c-dev
           version: 1.0
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-      - name: Install binstall plugin
-        uses: actions-rs/cargo@v1
-        with:
-          command: install cargo-binstall
-      - name: Install shuttle plugin
-        uses: actions-rs/cargo@v1
-        with:
-          command: binstall cargo-shuttle
       - name: Tests run
         uses: actions-rs/cargo@v1
         with:
