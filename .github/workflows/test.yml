@@ -12,7 +12,7 @@ jobs:
       - name: Install dependencies
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: protobuf-compiler libprotobuf-dev libprotobuf-c-dev libprotobuf-c-dev
+          packages: protobuf-compiler
           version: 1.0
       - uses: actions-rs/toolchain@v1
         with:
