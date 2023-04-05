@@ -1,10 +1,10 @@
-name: Test
+name: Build
 
 on: [push]
 
 jobs:
   test:
-    name: Run pythagors tests
+    name: Run pythagors build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project
