@@ -1772,9 +1772,9 @@ dependencies = [
 
 [[package]]
 name = "shuttle-codegen"
-version = "0.13.0"
+version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1099301a3437f6503db81271975e644c5e1aad9fe6170025e38f5e2f3e1ead79"
+checksum = "e70e6a07f60954c5a00358b41d6fb59d30b7fd115242f9f01eac36df31c7c6c1"
 dependencies = [
  "proc-macro-error",
  "proc-macro2",
@@ -1784,9 +1784,9 @@ dependencies = [
 
 [[package]]
 name = "shuttle-common"
-version = "0.13.0"
+version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "20e5f49c3ea8bc7c6ff3bc1c28c684849352c9cca1387b176970b421a96ab2ba"
+checksum = "8072d108dd5ea72e7848c506e93e186faab3c9b39082a5502cd635b380b34b51"
 dependencies = [
  "async-trait",
  "axum",
@@ -1821,9 +1821,9 @@ dependencies = [
 
 [[package]]
 name = "shuttle-proto"
-version = "0.13.0"
+version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b87f6be4af7b511219d9039d3d54ec452fafe66ed9feb8e008061ca6d90c7099"
+checksum = "63319b5ccfc94b3d773bb3efdf481fca9b276f8a11461bfa60fc137b435b656c"
 dependencies = [
  "anyhow",
  "chrono",
@@ -1833,16 +1833,15 @@ dependencies = [
  "shuttle-common",
  "tokio",
  "tonic",
- "tonic-build",
  "tower",
  "tracing",
 ]
 
 [[package]]
 name = "shuttle-runtime"
-version = "0.13.0"
+version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f8ebc8c57f9f366488b85e54cc0bb61a47d22ceb2dd45d6090034ba55676c7e1"
+checksum = "f2f7c40f3ed1d5ee8d59c8b00d104d10c1e14040d8a8d4e0161d1df5612963ee"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1866,9 +1865,9 @@ dependencies = [
 
 [[package]]
 name = "shuttle-secrets"
-version = "0.13.0"
+version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "97665fa2139f7fabdaba678097dffd73fa9946d1d329328c6880a9a33370b1bc"
+checksum = "b739c031b7b6d4c49e66c74e95f18f571f19d7f3bb03bdf5e6caf368f4f34f48"
 dependencies = [
  "async-trait",
  "serde",
@@ -1877,9 +1876,9 @@ dependencies = [
 
 [[package]]
 name = "shuttle-serenity"
-version = "0.13.0"
+version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dcac89b5e2465f9f1502923b331fca6261dc86c487c7a9e19b6a7283e736ef4f"
+checksum = "af37093ccfa22190e6a2c385236b53313e4c1f960385ac7625fafb6b906b515c"
 dependencies = [
  "serenity",
  "shuttle-runtime",
@@ -1887,9 +1886,9 @@ dependencies = [
 
 [[package]]
 name = "shuttle-service"
-version = "0.13.0"
+version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2cc895240b1a94c80d195e951718fe2bbe10249114cc26c5fb5cd500890b8a21"
+checksum = "e4e6c77ba474f7ff5651d552a2a34e217229b664ba49a4bfae979881ad0a9d24"
 dependencies = [
  "anyhow",
  "async-trait",
