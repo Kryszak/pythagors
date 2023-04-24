@@ -5,7 +5,6 @@ mod verification;
 use anyhow::anyhow;
 use globals::Globals;
 use serenity::prelude::*;
-use serenity_ctrlc::Ext;
 use shuttle_secrets::SecretStore;
 use verification::MessageVerificator;
 
@@ -27,9 +26,7 @@ async fn serenity(
     let client = Client::builder(&token, intents)
         .event_handler(message_verificator)
         .await
-        .expect("Err creating client")
-        .ctrlc()
-        .expect("Failed to register ctrl-c signal handler");
+        .expect("Err creating client");
 
     Ok(client.into())
 }
