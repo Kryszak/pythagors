@@ -35,12 +35,12 @@ GAME_OVER_NUMBER="16" # Number, on which game will end as a string
 - `{{role}}` will be substituted with mention to won role
 
 ### Run project
-```
+```bash
 cargo shuttle run
 ```
 
 ### Deploy to shuttle
-```
+```bash
 cargo shuttle project new # only if project does not exist yet
 cargo shuttle deploy
 ```
@@ -48,10 +48,10 @@ Secrets are populated initially from `Secrets.toml` file and can be edited with 
 
 ### Stop deployment
 As for now, stopping deployment seems to be buggy and don't work. Normally it should be done with
-```
+```bash
 cargo shuttle stop
 ```
 but only way to destroy the deployment seems to be removing whole project from shuttle
-```
+```bash
 cargo shuttle project rm
 ```
