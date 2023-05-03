@@ -15,11 +15,14 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+      - name: Prepare cache
+        uses: Swatinem/rust-cache@v1
       - name: Build project
         uses: actions-rs/cargo@v1
         with:
           command: build
-      - name: Verify with Clippy
+      - name: Check with Clippy
         uses: actions-rs/cargo@v1
         with:
-          command: clippy -- -D warnings
+          command: clippy
+          args: -- -D warnings
