@@ -2,6 +2,8 @@ mod discord;
 mod globals;
 mod verification;
 
+use std::sync::Arc;
+
 use anyhow::anyhow;
 use globals::Globals;
 use serenity::prelude::*;
@@ -18,7 +20,7 @@ async fn serenity(
         return Err(anyhow!("'CLIENT_TOKEN' was not found").into());
     };
 
-    let globals = Globals::new(secret_store);
+    let globals = Arc::new(Globals::new(secret_store));
     let message_verificator = MessageVerificator::new(globals);
     let intents =
         GatewayIntents::GUILDS | GatewayIntents::GUILD_MESSAGES | GatewayIntents::MESSAGE_CONTENT;

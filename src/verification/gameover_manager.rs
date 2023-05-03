@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use serenity::{
     model::{
         prelude::{Message, PermissionOverwrite, PermissionOverwriteType},
@@ -10,16 +12,16 @@ use tracing::error;
 use crate::{discord::message_sender::MessageSender, globals::Globals};
 
 pub struct GameoverManager {
-    globals: Globals,
-    message_sender: MessageSender,
+    globals: Arc<Globals>,
+    message_sender: Arc<MessageSender>,
 }
 
 impl GameoverManager {
-    pub fn new(globals: Globals) -> Self {
-        return GameoverManager {
-            globals: globals.clone(),
-            message_sender: MessageSender::new(globals),
-        };
+    pub fn new(globals: Arc<Globals>, message_sender: Arc<MessageSender>) -> Self {
+        GameoverManager {
+            globals,
+            message_sender,
+        }
     }
 
     pub async fn check_for_game_over(&self, msg: &Message, context: &Context, number: i32) {
