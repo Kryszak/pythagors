@@ -16,10 +16,10 @@ pub struct GameoverManager {
 
 impl GameoverManager {
     pub fn new(globals: Globals) -> Self {
-        return GameoverManager {
+        GameoverManager {
             globals: globals.clone(),
             message_sender: MessageSender::new(globals),
-        };
+        }
     }
 
     pub async fn check_for_game_over(&self, msg: &Message, context: &Context, number: i32) {
