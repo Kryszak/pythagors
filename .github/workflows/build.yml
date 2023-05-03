@@ -16,7 +16,7 @@ jobs:
         with:
           toolchain: stable
       - name: Prepare cache
-        uses: Swatinem/rust-cache@v1
+        uses: Swatinem/rust-cache@v2
       - name: Build project
         uses: actions-rs/cargo@v1
         with:
