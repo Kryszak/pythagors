@@ -1,20 +1,25 @@
+use std::sync::Arc;
+
 use serenity::{model::prelude::Message, prelude::Context};
 
 use crate::{
-    discord::{message_sender::MessageSender, role_adder::add_role},
+    discord::{
+        message_sender::MessageSender,
+        role_adder::add_role,
+    },
     globals::Globals,
 };
 
 pub struct PrizeManager {
-    globals: Globals,
-    message_sender: MessageSender,
+    globals: Arc<Globals>,
+    message_sender: Arc<MessageSender>,
 }
 
 impl PrizeManager {
-    pub fn new(globals: Globals) -> Self {
+    pub fn new(globals: Arc<Globals>, message_sender: Arc<MessageSender>) -> Self {
         PrizeManager {
-            globals: globals.clone(),
-            message_sender: MessageSender::new(globals),
+            globals: Arc::clone(&globals),
+            message_sender,
         }
     }
 
