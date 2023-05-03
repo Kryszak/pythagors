@@ -3,10 +3,7 @@ use std::sync::Arc;
 use serenity::{model::prelude::Message, prelude::Context};
 
 use crate::{
-    discord::{
-        message_sender::MessageSender,
-        role_adder::add_role,
-    },
+    discord::{message_sender::MessageSender, role_adder::add_role},
     globals::Globals,
 };
 
