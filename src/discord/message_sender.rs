@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, sync::Arc};
 
 use crate::globals::Globals;
 use serenity::{model::prelude::Message, prelude::Context};
@@ -6,11 +6,11 @@ use string_template::Template;
 use tracing::log::error;
 
 pub struct MessageSender {
-    globals: Globals,
+    globals: Arc<Globals>,
 }
 
 impl MessageSender {
-    pub fn new(globals: Globals) -> Self {
+    pub fn new(globals: Arc<Globals>) -> Self {
         MessageSender { globals }
     }
 

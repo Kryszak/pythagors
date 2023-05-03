@@ -14,6 +14,7 @@ use tracing::{
 use crate::{
     discord::{
         message_fetcher::MessageFetcher,
+        message_sender::MessageSender,
         message_utils::{self, contains_number, extract_number_from_message},
     },
     globals::Globals,
@@ -27,20 +28,24 @@ use super::{
 pub struct MessageVerificator {
     message_fetcher: MessageFetcher,
     prize_manager: PrizeManager,
-    globals: Globals,
+    globals: Arc<Globals>,
     error_handler: ErrorHandler,
     gameover_manager: GameoverManager,
     mutex: Arc<Mutex<bool>>,
 }
 
 impl MessageVerificator {
-    pub fn new(globals: Globals) -> Self {
+    pub fn new(globals: Arc<Globals>) -> Self {
+        let message_sender = Arc::new(MessageSender::new(Arc::clone(&globals)));
         MessageVerificator {
             message_fetcher: MessageFetcher::new(globals.message_fetch_limit),
-            prize_manager: PrizeManager::new(globals.clone()),
-            globals: globals.clone(),
-            error_handler: ErrorHandler::new(globals.clone()),
-            gameover_manager: GameoverManager::new(globals),
+            prize_manager: PrizeManager::new(Arc::clone(&globals), Arc::clone(&message_sender)),
+            globals: Arc::clone(&globals),
+            error_handler: ErrorHandler::new(Arc::clone(&message_sender)),
+            gameover_manager: GameoverManager::new(
+                Arc::clone(&globals),
+                Arc::clone(&message_sender),
+            ),
             mutex: Arc::new(Mutex::new(false)),
         }
     }
