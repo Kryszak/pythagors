@@ -18,6 +18,15 @@ Game rules can be found in [Rules](./RULES.md)
 - Manage Messages
 
 ## local dev config
+### Tools
+Make sure that rust toolset is up to date.
+```
+rustup update
+```
+Shuttle plugin for cargo is required for building, running and deployment of bot
+```
+cargo install cargo-shuttle
+```
 ### Config
 In main project directory create `Secrets.toml` file with following contents:
 ```toml
