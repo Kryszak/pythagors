@@ -20,11 +20,11 @@ Game rules can be found in [Rules](./RULES.md)
 ## local dev config
 ### Tools
 Make sure that rust toolset is up to date.
-```
+```bash
 rustup update
 ```
 Shuttle plugin for cargo is required for building, running and deployment of bot
-```
+```bash
 cargo install cargo-shuttle
 ```
 ### Config
@@ -43,7 +43,7 @@ GAME_OVER_NUMBER="16" # Number, on which game will end as a string
 - `{{author}}` will be substituted with mention to message's author
 - `{{role}}` will be substituted with mention to won role
 
-### Run project
+### Run project locally
 ```bash
 cargo shuttle run
 ```
@@ -51,16 +51,13 @@ cargo shuttle run
 ### Deploy to shuttle
 ```bash
 cargo shuttle project new # only if project does not exist yet
+cargo shuttle project start
 cargo shuttle deploy
 ```
 Secrets are populated initially from `Secrets.toml` file and can be edited with `cargo shuttle secrets` command.
 
 ### Stop deployment
-As for now, stopping deployment seems to be buggy and don't work. Normally it should be done with
 ```bash
-cargo shuttle stop
+cargo shuttle project stop
 ```
-but only way to destroy the deployment seems to be removing whole project from shuttle
-```bash
-cargo shuttle project rm
-```
+
