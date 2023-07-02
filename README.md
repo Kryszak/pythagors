@@ -27,7 +27,7 @@ WRONG_INCREMENT_MESSAGE_TEMPLATE="{{author}} learn learn to count" # Content of 
 WRONG_FORMAT_MESSAGE_TEMPLATE="{{author}} read game rules - message was not correct" # Content of message sent, when user posts message in wrong format
 RANK_WON_MESSAGE_TEMPLATE="{{author}}, congratulations on winning rank {{role}}!" # Content of message sent, when user posts message with number winning role 
 GAME_OVER_MESSAGE_TEMPLATE="Game over! Thanks for playing" # Content of message sent on last number
-RANKS='{"10": 973271221112291409, "15": 973282436047839262}' # JSON with number - rankId entries
+RANKS='{"10": "973271221112291409", "15": "973282436047839262"}' # JSON with number - rankId entries
 GAME_OVER_NUMBER="16" # Number, on which game will end as a string
 ```
 ### Config placeholders

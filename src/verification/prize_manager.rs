@@ -21,7 +21,7 @@ impl PrizeManager {
     }
 
     pub async fn add_role_for_prized_number(&self, msg: &Message, context: &Context, number: i32) {
-        let role_id_for_number = self.globals.ranks.get(number.to_string());
+        let role_id_for_number = self.globals.ranks.get(&number.to_string());
         if let Some(role_id) = role_id_for_number {
             add_role(msg, context, role_id.to_string()).await;
             self.message_sender

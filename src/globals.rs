@@ -1,4 +1,5 @@
-use serde_json::Value;
+use std::collections::HashMap;
+
 use shuttle_secrets::SecretStore;
 
 #[derive(Clone)]
@@ -10,7 +11,7 @@ pub struct Globals {
     pub wrong_format_message_template: String,
     pub rank_won_message_template: String,
     pub game_over_message_template: String,
-    pub ranks: Value,
+    pub ranks: HashMap<String, String>,
     pub gameover_number: i32,
 }
 
@@ -42,7 +43,7 @@ impl Globals {
                 .expect("No message template for game over provided"),
             ranks: secret_store
                 .get("RANKS")
-                .map(|data| serde_json::from_str(&data).expect("failed to parse data"))
+                .map(|data| serde_json::from_str(&data).expect("failed to parse ranks json"))
                 .expect("No prized numbers provided"),
             gameover_number: secret_store
                 .get("GAME_OVER_NUMBER")
