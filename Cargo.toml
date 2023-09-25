@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 shuttle-serenity = "0.26.0"
-shuttle-runtime = "0.26.0"
+shuttle-runtime = "0.27.0"
 shuttle-secrets = "0.26.0"
 serenity = { version = "0.11.6", default-features = false, features = [
     "client",
