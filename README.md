@@ -1,7 +1,7 @@
 ![Build Result](https://github.com/Kryszak/pythagors/actions/workflows/build.yml/badge.svg)
 
 # Pythagors
-Rewrite of [cyferki-watcher-bot](https://github.com/Kryszak/cyferki-watcher-bot) in Rust to leverage 
+Rewrite of [cyferki-watcher-bot](https://github.com/Kryszak/cyferki-watcher-bot) in Rust to use 
 [shuttle](https://www.shuttle.rs/) deployments.
 
 ## Rules
