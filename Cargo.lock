@@ -1910,9 +1910,9 @@ dependencies = [
 
 [[package]]
 name = "shuttle-serenity"
-version = "0.35.0"
+version = "0.35.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "73263cd46dd9c68b9a1b5eacf504b636ac41d84847e8fa1dcd04cab204ef24a9"
+checksum = "751c99afff5b695866c233fc4e39d278cdc5d3d7496068126257541c8e4bf4ac"
 dependencies = [
  "serenity",
  "shuttle-runtime",
