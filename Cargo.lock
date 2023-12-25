@@ -1898,9 +1898,9 @@ dependencies = [
 
 [[package]]
 name = "shuttle-secrets"
-version = "0.35.1"
+version = "0.35.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3456b508f8817b2ba4e0fe106ddf6dee0732f688afa14fbb3b6f5422fd952dd4"
+checksum = "95f328ab4dc937400a07d3b7e96ae84eaae8eefe756ef533c3c0545fd2f155ab"
 dependencies = [
  "async-trait",
  "secrecy",
