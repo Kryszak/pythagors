@@ -3,7 +3,8 @@ use std::sync::Arc;
 use serenity::{
     async_trait,
     futures::lock::Mutex,
-    model::prelude::{Activity, Message, Ready},
+    gateway::ActivityData,
+    model::prelude::{Message, Ready},
     prelude::{Context, EventHandler},
 };
 use tracing::{
@@ -107,9 +108,7 @@ impl MessageVerificator {
 impl EventHandler for MessageVerificator {
     async fn ready(&self, context: Context, ready: Ready) {
         info!("Connected as {}", ready.user.name);
-        context
-            .set_activity(Activity::watching("grę w cyferki"))
-            .await;
+        context.set_activity(Some(ActivityData::watching("grę w cyferki")))
     }
 
     async fn message(&self, context: Context, msg: Message) {

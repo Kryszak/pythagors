@@ -1,7 +1,7 @@
 use std::{collections::HashMap, sync::Arc};
 
 use crate::globals::Globals;
-use serenity::{model::prelude::Message, prelude::Context};
+use serenity::{builder::CreateMessage, model::prelude::Message, prelude::Context};
 use string_template::Template;
 use tracing::log::error;
 
@@ -53,9 +53,10 @@ impl MessageSender {
     }
 
     async fn send(original_msg: &Message, context: &Context, content: String) {
+        let message = CreateMessage::new().content(content);
         if original_msg
             .channel_id
-            .send_message(&context.http, |message| message.content(content))
+            .send_message(&context.http, message)
             .await
             .is_err()
         {

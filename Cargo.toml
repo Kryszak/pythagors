@@ -4,10 +4,10 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-shuttle-serenity = "0.36.0"
-shuttle-runtime = "0.36.0"
-shuttle-secrets = "0.36.0"
-serenity = { version = "0.11.7", default-features = false, features = [
+shuttle-serenity = "0.37.0"
+shuttle-runtime = "0.37.0"
+shuttle-secrets = "0.37.0"
+serenity = { version = "0.12.0", default-features = false, features = [
     "client",
     "gateway",
     "rustls_backend",

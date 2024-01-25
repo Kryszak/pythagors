@@ -28,7 +28,7 @@ impl GameoverManager {
         if number == self.globals.gameover_number {
             self.message_sender.notify_game_over(msg, context).await;
             let everyone = msg
-                .guild(context)
+                .guild(&context.cache)
                 .unwrap()
                 .role_by_name("@everyone")
                 .unwrap()
@@ -40,7 +40,7 @@ impl GameoverManager {
             };
             if msg
                 .channel_id
-                .create_permission(&context.http, &write_locked)
+                .create_permission(&context.http, write_locked)
                 .await
                 .is_err()
             {
