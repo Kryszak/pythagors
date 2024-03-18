@@ -2,23 +2,20 @@ mod discord;
 mod globals;
 mod verification;
 
-use std::sync::Arc;
-
-use anyhow::anyhow;
+use anyhow::Context;
 use globals::Globals;
 use serenity::prelude::*;
-use shuttle_secrets::SecretStore;
+use shuttle_runtime::SecretStore;
+use std::sync::Arc;
 use verification::MessageVerificator;
 
 #[shuttle_runtime::main]
 async fn serenity(
-    #[shuttle_secrets::Secrets] secret_store: SecretStore,
+    #[shuttle_runtime::Secrets] secret_store: SecretStore,
 ) -> shuttle_serenity::ShuttleSerenity {
-    let token = if let Some(token) = secret_store.get("CLIENT_TOKEN") {
-        token
-    } else {
-        return Err(anyhow!("'CLIENT_TOKEN' was not found").into());
-    };
+    let token = secret_store
+        .get("CLIENT_TOKEN")
+        .context("'CLIENT_TOKEN' was not found")?;
 
     let globals = Arc::new(Globals::new(secret_store));
     let message_verificator = MessageVerificator::new(globals);
