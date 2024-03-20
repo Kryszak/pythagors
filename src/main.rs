@@ -13,6 +13,14 @@ use verification::MessageVerificator;
 async fn serenity(
     #[shuttle_runtime::Secrets] secret_store: SecretStore,
 ) -> shuttle_serenity::ShuttleSerenity {
+    tracing_subscriber::fmt()
+        .with_ansi(true)
+        .with_file(false)
+        .with_target(false)
+        .with_level(true)
+        .without_time()
+        .init();
+
     let token = secret_store
         .get("CLIENT_TOKEN")
         .context("'CLIENT_TOKEN' was not found")?;
