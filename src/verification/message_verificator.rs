@@ -63,6 +63,11 @@ impl MessageVerificator {
             extract_number_from_message(msg),
         );
 
+        let author_name = msg
+            .author_nick(context)
+            .await
+            .unwrap_or(msg.author.name.to_owned());
+
         if checked_numbers.are_both_absent() {
             if MessageVerificator::all_message_does_not_contain_numbers(messages) {
                 warn!("Skipping further validation as counting doesn't start yet");
@@ -75,16 +80,16 @@ impl MessageVerificator {
         if checked_numbers.is_current_invalid_starting_number() {
             warn!(
                 "{} tried to start game with value higher than 1!",
-                msg.author.name
+                author_name
             );
             return Err(MessageError::WrongNumber);
         }
         if checked_numbers.is_current_number_absent() {
-            warn!("{} sent message not starting with number.", msg.author.name);
+            warn!("{} sent message not starting with number.", author_name);
             return Err(MessageError::WrongFormat);
         }
         if checked_numbers.is_current_number_incorrect() {
-            warn!("{} posted wrong number!", msg.author.name);
+            warn!("{} posted wrong number!", author_name);
             return Err(MessageError::WrongNumber);
         }
 
