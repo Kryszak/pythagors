@@ -2,7 +2,6 @@ mod discord;
 mod globals;
 mod verification;
 
-use anyhow::Context;
 use globals::Globals;
 use serenity::prelude::*;
 use shuttle_runtime::SecretStore;
@@ -21,11 +20,8 @@ async fn serenity(
         .without_time()
         .init();
 
-    let token = secret_store
-        .get("CLIENT_TOKEN")
-        .context("'CLIENT_TOKEN' was not found")?;
-
     let globals = Arc::new(Globals::new(secret_store));
+    let token = globals.client_token.clone();
     let message_verificator = MessageVerificator::new(globals);
     let intents =
         GatewayIntents::GUILDS | GatewayIntents::GUILD_MESSAGES | GatewayIntents::MESSAGE_CONTENT;
