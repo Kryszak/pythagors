@@ -13,7 +13,7 @@ serenity = { version = "0.12.2", default-features = false, features = [
     "model",
     "cache",
 ] }
-tokio = "1.39.3"
+tokio = "1.40.0"
 tracing = "0.1.40"
 tracing-subscriber = "0.3.18"
 string_template = "0.2.1"
