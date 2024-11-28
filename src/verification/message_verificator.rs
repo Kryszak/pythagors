@@ -105,7 +105,7 @@ impl MessageVerificator {
     }
 
     fn all_message_does_not_contain_numbers(messages: Vec<Message>) -> bool {
-        return messages.iter().all(|m| !contains_number(m));
+        messages.iter().all(|m| !contains_number(m))
     }
 }
 

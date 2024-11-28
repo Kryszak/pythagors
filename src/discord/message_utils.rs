@@ -5,12 +5,11 @@ pub fn is_from_user(message: &Message) -> bool {
 }
 
 pub fn extract_number_from_message(msg: &Message) -> Option<i32> {
-    return msg
-        .content
+    msg.content
         .split(' ')
         .next()
         .map(String::from)
-        .and_then(try_parse);
+        .and_then(try_parse)
 }
 
 pub fn contains_number(msg: &Message) -> bool {
