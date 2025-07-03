@@ -38,7 +38,7 @@ impl MessageSender {
         let msg_template = Template::new(&self.globals.rank_won_message_template);
         let mut parameters: HashMap<&str, &str> = HashMap::new();
         let author_mention = format!("<@{}>", msg.author.id);
-        let role_mention = format!("<@&{}>", role_id);
+        let role_mention = format!("<@&{role_id}>");
         parameters.insert("author", &author_mention);
         parameters.insert("role", &role_mention);
         let message_content = msg_template.render(&parameters);
