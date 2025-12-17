@@ -1,8 +1,7 @@
 ![Build Result](https://github.com/Kryszak/pythagors/actions/workflows/build.yml/badge.svg)
 
 # Pythagors
-Rewrite of [cyferki-watcher-bot](https://github.com/Kryszak/cyferki-watcher-bot) in Rust to use 
-[shuttle](https://www.shuttle.rs/) deployments.
+Rewrite of [cyferki-watcher-bot](https://github.com/Kryszak/cyferki-watcher-bot) in Rust.
 
 ## Rules
 Game rules can be found in [Rules](./RULES.md)
@@ -21,10 +20,6 @@ Game rules can be found in [Rules](./RULES.md)
 Make sure that rust toolset is up to date.
 ```bash
 rustup update
-```
-Shuttle plugin for cargo is required for building, running and deployment of bot
-```bash
-cargo install cargo-shuttle
 ```
 ### Config
 In main project directory create `Secrets.toml` file with following contents:
