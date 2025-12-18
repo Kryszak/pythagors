@@ -22,49 +22,49 @@ impl Globals {
         Globals {
             client_token: map
                 .get("CLIENT_TOKEN")
-                .map(|x| x.as_str().unwrap())
+                .and_then(|x| x.as_str())
                 .map(String::from)
                 .expect("No client token provided"),
             watched_channel: map
                 .get("WATCHED_CHANNEL")
-                .map(|x| x.as_str().unwrap())
+                .and_then(|x| x.as_str())
                 .map(String::from)
                 .expect("No channel name provided to watch"),
             message_fetch_limit: map
                 .get("MESSAGE_FETCH_LIMIT")
-                .map(|x| x.as_str().unwrap())
+                .and_then(|x| x.as_str())
                 .map(String::from)
                 .unwrap_or_else(|| String::from("50"))
                 .parse::<i32>()
                 .expect("Failed to parse message limit count"),
             wrong_number_message_template: map
                 .get("WRONG_INCREMENT_MESSAGE_TEMPLATE")
-                .map(|x| x.as_str().unwrap())
+                .and_then(|x| x.as_str())
                 .map(String::from)
                 .expect("No message template for wrong number posted provided"),
             wrong_format_message_template: map
                 .get("WRONG_FORMAT_MESSAGE_TEMPLATE")
-                .map(|x| x.as_str().unwrap())
+                .and_then(|x| x.as_str())
                 .map(String::from)
                 .expect("No message template for wrong format posted provided"),
             rank_won_message_template: map
                 .get("RANK_WON_MESSAGE_TEMPLATE")
-                .map(|x| x.as_str().unwrap())
+                .and_then(|x| x.as_str())
                 .map(String::from)
                 .expect("No message template for rank won provided"),
             game_over_message_template: map
                 .get("GAME_OVER_MESSAGE_TEMPLATE")
-                .map(|x| x.as_str().unwrap())
+                .and_then(|x| x.as_str())
                 .map(String::from)
                 .expect("No message template for game over provided"),
             ranks: map
                 .get("RANKS")
-                .map(|x| x.as_str().unwrap())
-                .map(|data| serde_json::from_str(data).expect("failed to parse ranks json"))
+                .and_then(|x| x.as_str())
+                .and_then(|data| serde_json::from_str(data).ok())
                 .expect("No prized numbers provided"),
             gameover_number: map
                 .get("GAME_OVER_NUMBER")
-                .map(|x| x.as_str().unwrap())
+                .and_then(|x| x.as_str())
                 .map(String::from)
                 .expect("No game over number provided")
                 .parse::<i32>()

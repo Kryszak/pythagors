@@ -27,7 +27,6 @@ async fn main() {
         .init();
 
     let globals = Arc::new(Globals::new());
-    println!("{:?}", globals);
     let token = globals.client_token.clone();
     let message_verificator = MessageVerificator::new(globals);
     let intents =
