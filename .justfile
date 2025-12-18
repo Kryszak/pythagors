@@ -12,24 +12,8 @@ build:
 lint:
     cargo clippy -- -D warnings
 
-
-# Create project on shuttle
-[group('Shuttle')]
-create-project:
-    shuttle project start
-
-# Deploy app to shuttle
-[group('Shuttle')]
-deploy:
-    shuttle deploy --allow-dirty
-
-# Stop shuttle deployment
-[group('Shuttle')]
-stop:
-    shuttle deployment stop
-
 # Run project locally
 [group('local')]
 run:
-    shuttle run
+    -cargo run
 
