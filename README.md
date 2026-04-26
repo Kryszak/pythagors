@@ -1,4 +1,5 @@
 ![Build Result](https://github.com/Kryszak/pythagors/actions/workflows/build.yml/badge.svg)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ffd59bc43add473cba23013ecd9949a2)](https://app.codacy.com/gh/Kryszak/pythagors/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 # Pythagors
 Rewrite of [cyferki-watcher-bot](https://github.com/Kryszak/cyferki-watcher-bot) in Rust.
