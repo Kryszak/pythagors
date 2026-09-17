@@ -17,7 +17,7 @@ impl MessageFetcher {
         &self,
         msg: &Message,
         http: &Http,
-    ) -> Result<Vec<Message>, Error> {
+    ) -> Result<Vec<Message>, Box<Error>> {
         let message_filter = GetMessages::new().before(msg.id).limit(self.message_limit);
         let messages = msg.channel_id.messages(http, message_filter).await?;
 
